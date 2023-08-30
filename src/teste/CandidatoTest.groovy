@@ -1,5 +1,6 @@
 package teste
 
+import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
 
@@ -7,42 +8,126 @@ import Users.Candidato
 
 class CandidatoTest {
 
-    @Test
-    void testCriarCandidato() {
-        // Arrange (preparação)
-        def competencias = ["Java", "Python"]
-        def mockCandidato = Mockito.mock(Candidato.class)
+    def competencias = ["Java", "Python"]
 
-        // Comportamento esperado para os métodos getter do mock
-        Mockito.when(mockCandidato.getNome()).thenReturn("Candidato Teste")
-        Mockito.when(mockCandidato.getEmail()).thenReturn("teste@example.com")
-        Mockito.when(mockCandidato.getIdade()).thenReturn(28)
-        Mockito.when(mockCandidato.getEstado()).thenReturn("Estado Teste")
-        Mockito.when(mockCandidato.getCep()).thenReturn(12345)
-        Mockito.when(mockCandidato.getCpf()).thenReturn(123456789)
-        Mockito.when(mockCandidato.getDescricaoPessoal()).thenReturn("Descrição Teste")
-        Mockito.when(mockCandidato.getCompetencias()).thenReturn(competencias)
+    @Before
+    void setup() {
+        competencias = ["Java", "Python"]
+    }
+
+    @Test
+    void testNomeCandidato() {
+        // Arrange
+        def mockCandidato = Mockito.mock(Candidato.class)
+        def nomeEsperado ="Candidato Teste"
+        Mockito.when(mockCandidato.getNome()).thenReturn(nomeEsperado)
 
         // Act
-        def nome = mockCandidato.getNome()
-        def email = mockCandidato.getEmail()
-        def idade = mockCandidato.getIdade()
-        def estado = mockCandidato.getEstado()
-        def cep = mockCandidato.getCep()
-        def cpf = mockCandidato.getCpf()
-        def descricaoPessoal = mockCandidato.getDescricaoPessoal()
-        def competenciasObtidas = mockCandidato.getCompetencias()
+        def nomeObtido = mockCandidato.getNome()
 
-        // Assert (verificação)
-        assert nome == "Candidato Teste"
-        assert email == "teste@example.com"
-        assert idade == 28
-        assert estado == "Estado Teste"
-        assert cep == 12345
-        assert cpf == 123456789
-        assert descricaoPessoal == "Descrição Teste"
-        assert competenciasObtidas == competencias
+        //Assert
+        assert nomeObtido == nomeEsperado
+
     }
+
+    @Test
+    void testEmailCandidato() {
+        // Arrange
+        def mockCandidato = Mockito.mock(Candidato.class)
+        def emailEsperado ="teste@example.com"
+        Mockito.when(mockCandidato.getEmail()).thenReturn(emailEsperado)
+
+        // Act
+        def emailObtido = mockCandidato.getEmail()
+
+        //Assert
+        assert emailObtido == emailEsperado
+    }
+
+    @Test
+    void testIdadeCandidato() {
+        // Arrange
+        def mockCandidato = Mockito.mock(Candidato.class)
+        def idadeEsperado =30
+        Mockito.when(mockCandidato.getIdade()).thenReturn(idadeEsperado)
+
+        // Act
+        def idadeObtido = mockCandidato.getIdade()
+
+        //Assert
+        assert idadeObtido == idadeEsperado
+    }
+
+    @Test
+    void testEstadoCandidato() {
+        // Arrange
+        def mockCandidato = Mockito.mock(Candidato.class)
+        def estadoEsperado ="GO"
+        Mockito.when(mockCandidato.getEstado()).thenReturn(estadoEsperado)
+
+        // Act
+        def estadoObtido = mockCandidato.getEstado()
+
+        //Assert
+        assert estadoObtido == estadoEsperado
+    }
+
+    @Test
+    void testCepCandidato() {
+        // Arrange
+        def mockCandidato = Mockito.mock(Candidato.class)
+        def cepEsperado = 12345
+        Mockito.when(mockCandidato.getCep()).thenReturn(cepEsperado)
+
+        // Act
+        def cepObtido = mockCandidato.getCep()
+
+        //Assert
+        assert cepObtido == cepEsperado
+    }
+
+    @Test
+    void testCpfCandidato() {
+        // Arrange
+        def mockCandidato = Mockito.mock(Candidato.class)
+        def cpfEsperado = 123456789
+        Mockito.when(mockCandidato.getCpf()).thenReturn(cpfEsperado)
+
+        // Act
+        def cpfObtido = mockCandidato.getCpf()
+
+        //Assert
+        assert cpfObtido == cpfEsperado
+    }
+
+    @Test
+    void testDescricaoCandidato() {
+        // Arrange
+        def mockCandidato = Mockito.mock(Candidato.class)
+        def descricaoEsperado = "Descrição Teste"
+        Mockito.when(mockCandidato.getDescricaoPessoal()).thenReturn(descricaoEsperado)
+
+        // Act
+        def descricaoObtido = mockCandidato.getDescricaoPessoal()
+
+        //Assert
+        assert descricaoObtido == descricaoEsperado
+    }
+
+    @Test
+    void testCompetenciasCandidato() {
+        // Arrange
+        def mockCandidato = Mockito.mock(Candidato.class)
+        def competenciasEsperado = competencias
+        Mockito.when(mockCandidato.getCompetencias()).thenReturn(competenciasEsperado)
+
+        // Act
+        def competenciasObtido = mockCandidato.getCompetencias()
+
+        //Assert
+        assert competenciasObtido == competenciasEsperado
+    }
+
 }
 
 
