@@ -42,3 +42,16 @@ Se o usuário selecionar a opção "0", o programa exibirá uma mensagem de ence
 Ao executar o programa, você terá um menu interativo que permite listar candidatos e empresas, cadastrar novos candidatos e empresas, e também pré-cadastrou 5 candidatos.
 
 Isso cria uma experiência interativa e funcional para gerenciar informações de candidatos e empresas.
+
+# Teste unitário TDD, Junit, Mock
+
+Teste de Unidade para a Classe Candidato, este é um teste de unidade para verificar se o processo de criação e obtenção de informações de um objeto Candidato está funcionando corretamente. 
+
+  - Preparação (Arrange): Nesta seção, configuro as condições iniciais do teste, criação de dados simulados e configuração de comportamento simulado para os objetos envolvidos.
+  - Ação (Act): Nesta seção, executo a ação que está sendo testada, obtendo as informações do candidato simulado usando os métodos getter.
+  - Verificação (Assert): Verifica se os resultados obtidos durante a ação estão de acordo com o esperado, comparando os valores simulados e os valores obtidos dos métodos getter.
+
+O teste cria um mock da classe Candidato utilizando o Mockito. 
+Configura o comportamento simulado para os métodos getter, e então obtém as informações simuladas utilizando esses métodos. 
+Por fim, verifica se as informações obtidas coincidem com as informações simuladas, garantindo que o processo de criação e obtenção de informações do candidato está funcionando corretamente.
+Isso ajuda a garantir a corretude das operações de obtenção de informações da classe Candidato e a validar que o seu comportamento é o esperado
