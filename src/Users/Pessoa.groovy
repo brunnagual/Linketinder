@@ -13,5 +13,4 @@ class Pessoa {
         this.cep = cep
     }
 
-
 }
