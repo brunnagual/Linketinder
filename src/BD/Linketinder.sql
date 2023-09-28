@@ -1,71 +1,71 @@
-CREATE TABLE "candidatos" (
-  "id" int PRIMARY KEY,
-  "nome" varchar(50) NOT NULL,
-  "sobrenome" varchar(50) NOT NULL,
-  "email" varchar(50) NOT NULL,
-  "cep" varchar(9) NOT NULL,
-  "cpf" VARCHAR (14) NOT NULL,
-  "pais" varchar (20) NOT NULL,
-  "descricao" varchar(500) NOT NULL,
-  "senha" varchar (50) NOT NULL
+CREATE TABLE  candidatos  (
+    id  int PRIMARY KEY,
+    nome  character varying(50) NOT NULL,
+    sobrenome  character varying(50) NOT NULL,
+    email  character varying(50) NOT NULL,
+    cep   character varying(9),
+    cpf   varchar (14) NOT NULL,
+    pais  character varying (20),
+    descricao  character varying(500) NOT NULL,
+    senha  character varying (50)
 );
 
-CREATE TABLE "competencias" (
-  "id" int PRIMARY KEY,
-  "nome" varchar(50) NOT NULL
+CREATE TABLE  competencias  (
+    id  serial PRIMARY KEY,
+    nome  character varying(50) NOT NULL
 );
 
-CREATE TABLE "candidatos_competencias" (
-  "id" int PRIMARY KEY,
-  "id_candidatos" int NOT NULL,
-  "id_competencias" int NOT NULL
+CREATE TABLE  candidatos_competencias  (
+    id  serial PRIMARY KEY,
+    id_candidatos  int NOT NULL,
+    id_competencias  int NOT NULL,
+    FOREIGN KEY (id_candidatos) REFERENCES  candidatos(id),
+    FOREIGN KEY (id_competencias) REFERENCES  competencias(id)
 );
 
-CREATE TABLE "empresas" (
-  "id" int PRIMARY KEY,
-  "nome" varchar(50) NOT NULL,
-  "email" varchar(50) NOT NULL,
-  "cep" varchar(9) NOT NULL,
-  "cnpj" VARCHAR(18) NOT NULL,
-  "pais" varchar(20) NOT NULL,
-  "descricao" varchar(500) NOT NULL,
-  "senha" varchar NOT NULL,
-  "vagas" int NOT NULL
+CREATE TABLE  empresas  (
+    id  serial PRIMARY KEY,
+    nome   character varying(50) NOT NULL,
+    email   character varying(50) NOT NULL,
+    cep   character varying(9),
+    cnpj   varchar(18) NOT NULL,
+    pais   character varying(20),
+    descricao   character varying(500) NOT NULL,
+    senha   character varying NOT NULL,
+    vagas  int
 );
 
-CREATE TABLE "empresas_competencias" (
-  "id" int PRIMARY KEY,
-  "id_empresas" int NOT NULL,
-  "id_competencias" int NOT NULL
+CREATE TABLE  empresas_competencias  (
+    id  serial PRIMARY KEY,
+    id_empresas  int NOT NULL,
+    id_competencias  int NOT NULL,
+    FOREIGN KEY (id_empresas) REFERENCES empresas(id),
+    FOREIGN KEY (id_competencias) REFERENCES  competencias(id)
 );
 
-CREATE TABLE "vagas" (
-  "id" int PRIMARY KEY,
-  "nome" varchar(100) NOT NULL,
-  "descricao" varchar(500) NOT NULL,
-  "salario" int NOT NULL,
-  "id_competencias" int NOT NULL
+CREATE TABLE  vagas  (
+    id  serial PRIMARY KEY,
+    nome   character varying(100) NOT NULL,
+    descricao   character varying(500) NOT NULL,
+    salario  int NOT NULL,
+    id_competencias  int NOT NULL,
+    FOREIGN KEY (id_competencias) REFERENCES  competencias(id)
 );
 
-CREATE TABLE "matches" (
-  "id" int PRIMARY KEY,
-  "id_candidatos" int NOT NULL,
-  "id_empresas" int NOT NULL,
-  "id_vagas" int NOT NULL
+CREATE TABLE vagas_competencias (
+    id serial PRIMARY KEY,
+    id_vagas INT,
+    id_competencias INT,
+    FOREIGN KEY (id_vagas) REFERENCES vagas(id),
+    FOREIGN KEY (id_competencias) REFERENCES competencias(id)
 );
 
-ALTER TABLE "candidatos_competencias" ADD FOREIGN KEY ("id_candidatos") REFERENCES "candidatos" ("id");
-
-ALTER TABLE "candidatos_competencias" ADD FOREIGN KEY ("id_competencias") REFERENCES "competencias" ("id");
-
-ALTER TABLE "empresas_competencias" ADD FOREIGN KEY ("id_empresas") REFERENCES "empresas" ("id");
-
-ALTER TABLE "empresas_competencias" ADD FOREIGN KEY ("id_competencias") REFERENCES "competencias" ("id");
-
-ALTER TABLE "vagas" ADD FOREIGN KEY ("id_competencias") REFERENCES "competencias" ("id");
-
-ALTER TABLE "matches" ADD FOREIGN KEY ("id_candidatos") REFERENCES "candidatos" ("id");
-
-ALTER TABLE "matches" ADD FOREIGN KEY ("id_empresas") REFERENCES "empresas" ("id");
-
-ALTER TABLE "matches" ADD FOREIGN KEY ("id_vagas") REFERENCES "vagas" ("id");
+CREATE TABLE  curtidas  (
+    id  serial PRIMARY KEY,
+    id_candidatos  int NOT NULL,
+    id_empresas  int NOT NULL,
+    id_vagas  int NOT NULL,
+    FOREIGN KEY (id_candidatos) REFERENCES  candidatos(id),
+    FOREIGN KEY (id_empresas) REFERENCES  empresas(id),
+    FOREIGN KEY (id_vagas) REFERENCES  vagas(id)
+);
