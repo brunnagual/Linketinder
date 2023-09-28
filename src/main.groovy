@@ -1,21 +1,25 @@
+import BD.conexao
 import Users.Candidato
 import Users.Empresa
 
 static void main(String[] args) {
+
+    def conexao = new conexao()
+
     def candidatos = []
     def empresas = []
 
-    candidatos.add(new Candidato("Candidato 1", "candidato1@example.com", 25, "Estado 1", 12345, 12345678901, "Descrição 1", ["Java", "Python"]))
-    candidatos.add(new Candidato("Candidato 2", "candidato2@example.com", 30, "Estado 2", 67890, 23456789012, "Descrição 2", ["C++", "JavaScript"]))
-    candidatos.add(new Candidato("Candidato 3", "candidato3@example.com", 28, "Estado 3", 54321, 34567890123, "Descrição 3", ["Ruby", "Swift"]))
-    candidatos.add(new Candidato("Candidato 4", "candidato4@example.com", 35, "Estado 4", 98765, 45678901234, "Descrição 4", ["PHP", "HTML"]))
-    candidatos.add(new Candidato("Candidato 5", "candidato5@example.com", 22, "Estado 5", 13579, 56789012345, "Descrição 5", ["CSS", "SQL"]))
-
-    empresas.add(new Empresa("Empresa 1", "email1@example.com", 25, "Estado 1", 12345, "12345678901234", ["Java", "Angular"]))
-    empresas.add(new Empresa("Empresa 2", "email2@example.com", 30, "Estado 2", 67890, "56789012345678", ["Python", "SQL"]))
-    empresas.add(new Empresa("Empresa 3", "email3@example.com", 28, "Estado 3", 54321, "98765432101234", ["Spring Framework", "Java Script"]))
-    empresas.add(new Empresa("Empresa 4", "email4@example.com", 35, "Estado 4", 98765, "34567890123456", ["Angular ", "Type Script"]))
-    empresas.add(new Empresa("Empresa 5", "email5@example.com", 22, "Estado 5", 13579, "76543210987654", ["ReactJS", "C++"]))
+//    candidatos.add(new Candidato("Candidato 1", "candidato1@example.com", 25, "Estado 1", 12345, 12345678901, "Descrição 1", ["Java", "Python"]))
+//    candidatos.add(new Candidato("Candidato 2", "candidato2@example.com", 30, "Estado 2", 67890, 23456789012, "Descrição 2", ["C++", "JavaScript"]))
+//    candidatos.add(new Candidato("Candidato 3", "candidato3@example.com", 28, "Estado 3", 54321, 34567890123, "Descrição 3", ["Ruby", "Swift"]))
+//    candidatos.add(new Candidato("Candidato 4", "candidato4@example.com", 35, "Estado 4", 98765, 45678901234, "Descrição 4", ["PHP", "HTML"]))
+//    candidatos.add(new Candidato("Candidato 5", "candidato5@example.com", 22, "Estado 5", 13579, 56789012345, "Descrição 5", ["CSS", "SQL"]))
+//
+//    empresas.add(new Empresa("Empresa 1", "email1@example.com", 25, "Estado 1", 12345, "12345678901234", ["Java", "Angular"]))
+//    empresas.add(new Empresa("Empresa 2", "email2@example.com", 30, "Estado 2", 67890, "56789012345678", ["Python", "SQL"]))
+//    empresas.add(new Empresa("Empresa 3", "email3@example.com", 28, "Estado 3", 54321, "98765432101234", ["Spring Framework", "Java Script"]))
+//    empresas.add(new Empresa("Empresa 4", "email4@example.com", 35, "Estado 4", 98765, "34567890123456", ["Angular ", "Type Script"]))
+//    empresas.add(new Empresa("Empresa 5", "email5@example.com", 22, "Estado 5", 13579, "76543210987654", ["ReactJS", "C++"]))
 
     def scanner = new Scanner(System.in)
 
