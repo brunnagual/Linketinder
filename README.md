@@ -35,68 +35,29 @@ Por fim, verifica se as informações obtidas coincidem com as informações sim
 Isso ajuda a garantir a corretude das operações de obtenção de informações da classe Candidato e a validar que o seu comportamento é o esperado
 
 # ------------ Modelagem do Banco de Dados Linketinder ----------------
+Foi feito a modelagem do banco no projeto do linketinder adicionando as tabelas e posteriomente adicionando a logica de curtidas.
+
 Tabelas
+Tabelas Principais:
 
-    candidatos: Armazena informações sobre candidatos que utilizam o Linketinder.
-        id: Identificador único do candidato (Chave Primária).
-        nome: Nome do candidato.
-        sobrenome: Sobrenome do candidato.
-        email: Endereço de e-mail do candidato.
-        cep: CEP (Código de Endereçamento Postal) do candidato.
-        cpf: CPF (Cadastro de Pessoa Física) do candidato.
-        pais: País onde o candidato reside.
-        descricao: Descrição pessoal do candidato.
-        senha: Senha do candidato.
+    candidatos: Armazena informações sobre os candidatos, como nome, e-mail, descrição e competências.
+    empresas: Registra dados sobre as empresas, incluindo nome, CNPJ e vagas disponíveis.
+    vagas: Contém informações sobre as vagas de emprego, como nome, descrição, salário e competências exigidas.
+    competencias: Mantém um registro de competências que os candidatos possuem ou que as empresas requerem.
 
-    competencias: Armazena informações sobre as competências disponíveis.
-        id: Identificador único da competência (Chave Primária).
-        nome: Nome da competência.
+Relações:
 
-    candidatos_competencias: Tabela de relacionamento entre candidatos e competências.
-        id: Identificador único da relação (Chave Primária).
-        id_candidatos: Chave estrangeira que se relaciona com a tabela "candidatos".
-        id_competencias: Chave estrangeira que se relaciona com a tabela "competencias".
+    A tabela candidatos está relacionada à tabela competencias por meio da tabela intermediária candidatos_competencias. Isso permite que candidatos associem suas competências.
+    A tabela empresas está relacionada à tabela vagas por meio de uma relação 1:N, permitindo que uma empresa tenha várias vagas.
+    A tabela vagas está relacionada à tabela competencias para registrar as competências necessárias para cada vaga.
 
-    empresas: Armazena informações sobre empresas que utilizam o Linketinder.
-        id: Identificador único da empresa (Chave Primária).
-        nome: Nome da empresa.
-        email: Endereço de e-mail corporativo da empresa.
-        cep: CEP da empresa.
-        cnpj: CNPJ (Cadastro Nacional da Pessoa Jurídica) da empresa.
-        pais: País onde a empresa está localizada.
-        descricao: Descrição da empresa.
-        senha: Senha da empresa.
-        vagas: Número de vagas disponíveis na empresa.
+![Linketinder_diagram](https://github.com/brunnagual/Linketinder/assets/109802322/a92fdda7-fc5b-4457-8f2d-c9ae77f4aeca)
 
-    empresas_competencias: Tabela de relacionamento entre empresas e competências.
-        id: Identificador único da relação (Chave Primária).
-        id_empresas: Chave estrangeira que se relaciona com a tabela "empresas".
-        id_competencias: Chave estrangeira que se relaciona com a tabela "competencias".
 
-    vagas: Armazena informações sobre vagas de emprego oferecidas pelas empresas.
-        id: Identificador único da vaga (Chave Primária).
-        nome: Nome da vaga.
-        descricao: Descrição da vaga.
-        salario: Salário oferecido para a vaga.
-        id_competencias: Chave estrangeira que se relaciona com a tabela "competencias".
+Lógica de "Curtidas":
 
-    matches: Registra os matches entre candidatos, empresas e vagas.
-        id: Identificador único do match (Chave Primária).
-        id_candidatos: Chave estrangeira que se relaciona com a tabela "candidatos".
-        id_empresas: Chave estrangeira que se relaciona com a tabela "empresas".
-        id_vagas: Chave estrangeira que se relaciona com a tabela "vagas".
-
-Relacionamentos
-
-    candidatos_competencias relaciona candidatos com suas competências.
-    empresas_competencias relaciona empresas com as competências específicas necessárias para suas vagas.
-    vagas contém informações sobre as vagas de emprego, incluindo as competências necessárias.
-    matches registra os matches entre candidatos, empresas e vagas.
-
-Chaves Estrangeiras
-
-    candidatos_competencias relaciona candidatos com competências por meio de chaves estrangeiras.
-    empresas_competencias relaciona empresas com competências específicas por meio de chaves estrangeiras.
-    vagas usa uma chave estrangeira para relacionar vagas com competências.
-    matches usa chaves estrangeiras para relacionar candidatos, empresas e vagas.
-  ![linketinder_diagrama](https://github.com/brunnagual/Linketinder/assets/109802322/1e44e570-92fb-4ea7-ab3c-64acad2c0f52)
+    A tabela curtidas registra interações entre candidatos, empresas e vagas. 
+    As "curtidas" são criadas quando um candidato demonstra interesse por uma vaga que foi criada por uma empresa onde sinaliza interesse por um candidato.
+    Essas "curtidas" permitem que os usuários expressem interesse de maneira anônima, sem revelar detalhes pessoais antes de ocorrer um "match".
+    Um "match" ocorre quando as duas partes (candidato e empresa) "curtem" um ao outro, essa interação é registrado na tabela de curtidas indicando um interesse mútuo e possibilitando que iniciem uma conversa.
+![image](https://github.com/brunnagual/Linketinder/assets/109802322/2ba803cc-4c8d-4dbb-aabd-9acb17c12c3d)
