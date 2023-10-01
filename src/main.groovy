@@ -1,11 +1,13 @@
 import BD.CandidatoDB
 import BD.EmpresaDB
 import BD.conexao
+import BD.VagasDB
 
 static void main(String[] args) {
     def con = new conexao().getConnection()
     def candidatos = []
     def empresas = []
+    def vagas = []
     def scanner = new Scanner(System.in)
 
     menu: while (true) {
@@ -14,6 +16,8 @@ static void main(String[] args) {
         println("[2] Listar Empresas")
         println("[3] Cadastrar Candidato")
         println("[4] Cadastrar Empresas")
+        println("[5] Cadastrar Vaga")
+        println("[6] Listar Vagas")
         println("[0] Sair")
         def opcao = scanner.nextLine()
 
@@ -30,9 +34,14 @@ static void main(String[] args) {
             case "4":
                 EmpresaDB.cadastrarEmpresa(empresas,con, scanner)
                 break
+            case "5":
+                VagasDB.cadastrarVaga(vagas,con, scanner)
+                break
+            case "6":
+                VagasDB.listarVagas(con)
+                break
             case "0":
                 println("Saindo do programa.")
-                con.close()
                 break menu
             default:
                 println("Opção inválida.")
