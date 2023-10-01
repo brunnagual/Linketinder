@@ -2,6 +2,8 @@ package BD
 
 import java.sql.Connection
 import java.sql.DriverManager
+import java.sql.ResultSet
+import java.sql.Statement
 
 class conexao {
     String url
@@ -21,5 +23,19 @@ class conexao {
         } catch (Exception e) {
             e.printStackTrace()
         }
+    }
+    public ResultSet executaSQL(String sql){
+        try{
+            Statement stm = con.createStatement()
+            ResultSet res = stm.executeUpdate(sql)
+            con.close()
+            return res
+        }catch (Exception e){
+            e.printStackTrace()
+            return null
+        }
+    }
+    public Connection getConnection() {
+        return con
     }
 }

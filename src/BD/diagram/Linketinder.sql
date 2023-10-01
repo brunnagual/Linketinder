@@ -1,10 +1,10 @@
 CREATE TABLE  candidatos  (
-    id  int PRIMARY KEY,
+    id  serial PRIMARY KEY,
     nome  character varying(50) NOT NULL,
     sobrenome  character varying(50) NOT NULL,
     email  character varying(50) NOT NULL,
     cep   character varying(9),
-    cpf   varchar (14) NOT NULL,
+    cpf   character varying (14) NOT NULL,
     pais  character varying (20),
     descricao  character varying(500) NOT NULL,
     senha  character varying (50)
@@ -28,7 +28,7 @@ CREATE TABLE  empresas  (
     nome   character varying(50) NOT NULL,
     email   character varying(50) NOT NULL,
     cep   character varying(9),
-    cnpj   varchar(18) NOT NULL,
+    cnpj   character varying(18) NOT NULL,
     pais   character varying(20),
     descricao   character varying(500) NOT NULL,
     senha   character varying NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE  vagas  (
     id  serial PRIMARY KEY,
     nome   character varying(100) NOT NULL,
     descricao   character varying(500) NOT NULL,
-    salario  int NOT NULL,
+    salario  decimal NOT NULL,
     id_competencias  int NOT NULL,
     FOREIGN KEY (id_competencias) REFERENCES  competencias(id)
 );
