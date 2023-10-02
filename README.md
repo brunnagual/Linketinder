@@ -2,4 +2,6 @@
 
 Adaptação do projeto para gradle.
 
-Brunna adriane de Jesus Gualberto.
+O tracking do projeto original está na branch atualização.
+
+- Brunna adriane de Jesus Gualberto.
