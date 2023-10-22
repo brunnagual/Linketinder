@@ -8,8 +8,6 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import java.sql.Statement
 
-
-//----------------------------- Lista Candidatos --------------------------
 static void listarCandidatos(Connection con) {
     String sql = "SELECT * FROM candidatos"
     ResultSet res = null
@@ -38,15 +36,14 @@ static void listarCandidatos(Connection con) {
         }
     }
 }
-
-//-------------------------------- Cadastro Candidato -------------------------------------
 static void cadastrarCandidato(List<Candidato> candidatos, Connection con, Scanner scanner) {
-    def nome = capturarEntrada("Nome: ", scanner)
-    def sobrenome = capturarEntrada("Sobrenome: ", scanner)
-    def email = capturarEntrada("Email: ", scanner)
-    def cep = capturarEntrada("CEP: ", scanner)
-    def cpf = capturarEntrada("CPF: ", scanner) as long
-    def descricaoPessoal = capturarEntrada("Descrição Pessoal: ", scanner)
+    String nome = capturarEntrada("Nome: ", scanner)
+    String sobrenome = capturarEntrada("Sobrenome: ", scanner)
+    String email = capturarEntrada("Email: ", scanner)
+    String cep = capturarEntrada("CEP: ", scanner)
+    long cpf = capturarEntrada("CPF: ", scanner) as long
+    String descricaoPessoal = capturarEntrada("Descrição Pessoal: ", scanner)
+
 
     // Instrução SQL para inserir o candidato
     String sqlCandidato = "INSERT INTO public.candidatos(nome, sobrenome, email, cep, cpf, pais, descricao, senha) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);"
@@ -60,7 +57,7 @@ static void cadastrarCandidato(List<Candidato> candidatos, Connection con, Scann
         stmtCandidato.setLong(5, cpf)
         stmtCandidato.setString(6, "Brasil")
         stmtCandidato.setString(7, descricaoPessoal)
-        stmtCandidato.setString(8, "senha_padrao") // Define a senha padrão, ajuste conforme necessário
+        stmtCandidato.setString(8, "senha_padrao")
 
         int rowsAffected = stmtCandidato.executeUpdate()
         if (rowsAffected > 0) {
@@ -71,15 +68,13 @@ static void cadastrarCandidato(List<Candidato> candidatos, Connection con, Scann
                 candidatoId = generatedKeys.getInt(1)
             }
 
-            // Listar todas as competências disponíveis
             listarTodasCompetencias(con)
 
-            // Associar competências ao candidato em um loop
             while (true) {
                 associarCompetencia(candidatoId, con, scanner)
 
                 println("Deseja associar outra competência? (S/N): ")
-                def resposta = scanner.nextLine().toUpperCase()
+                String resposta = scanner.nextLine().toUpperCase()
                 if (!resposta.equals("S")) {
                     break
                 }
@@ -114,17 +109,16 @@ static void listarTodasCompetencias(Connection con) {
 }
 
 static void associarCompetencia(int candidatoId, Connection con, Scanner scanner) {
-    def idCompetencia = capturarEntrada("Digite o número da competência que deseja associar: ", scanner) as int
+    Integer idCompetencia = capturarEntrada("Digite o número da competência que deseja associar: ", scanner)
 
-    // Verificar se a competência existe
-    String sqlVerificar = "SELECT * FROM competencias WHERE id = ?"
+    String sqlVerificarCompetencia = "SELECT * FROM competencias WHERE id = ?"
     try {
-        PreparedStatement stmtVerificar = con.prepareStatement(sqlVerificar)
-        stmtVerificar.setInt(1, idCompetencia)
-        ResultSet resultado = stmtVerificar.executeQuery()
+        PreparedStatement stmtVerificarCompetencia = con.prepareStatement(sqlVerificarCompetencia)
+        stmtVerificarCompetencia.setInt(1, idCompetencia)
+        ResultSet resultado = stmtVerificarCompetencia.executeQuery()
 
         if (resultado.next()) {
-            // Inserir a associação na tabela candidatos_competencias
+
             String sqlAssociacao = "INSERT INTO public.candidatos_competencias(id_candidatos, id_competencias) VALUES (?, ?);"
             PreparedStatement stmtAssociacao = con.prepareStatement(sqlAssociacao)
             stmtAssociacao.setInt(1, candidatoId)

@@ -7,7 +7,6 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import java.sql.Statement
 
-//-------------------------------- Listar Vagas -------------------------------------
 static void listarVagas(Connection con) {
     String sql = "SELECT v.id, v.nome, v.descricao, v.salario, e.nome AS empresa FROM vagas AS v, empresas AS e WHERE v.id_empresa = e.id;"
     ResultSet res = null
@@ -38,8 +37,6 @@ static void listarVagas(Connection con) {
     }
 }
 
-//-------------------------------- Cadastro Vagas -------------------------------------
-
 static void cadastrarVaga(List<DAO.VagasDB> vagas, Connection con, Scanner scanner) {
     String nome = capturarEntrada("Nome da Vaga: ", scanner)
     String descricao = capturarEntrada("Descrição da Vaga: ", scanner)
@@ -55,7 +52,6 @@ static void cadastrarVaga(List<DAO.VagasDB> vagas, Connection con, Scanner scann
     List<Integer> competenciasAssociadas = new ArrayList<Integer>()
 
     while (true) {
-        // Verifica se o valor é "F" ou "f" para finalizar
         String input = capturarEntrada("Digite o número da competência que deseja associar (ou F para finalizar e cadastrar a vaga): ", scanner).toUpperCase()
         if (input.equals("F")) {
             break
@@ -74,11 +70,10 @@ static void cadastrarVaga(List<DAO.VagasDB> vagas, Connection con, Scanner scann
         }
     }
 
-    // Instrução SQL para inserir a vaga
-    String sqlVaga = "INSERT INTO vagas (nome, descricao, salario, id_empresa, id_competencias) VALUES (?, ?, ?, ?, ?) RETURNING id"
+    String InserirVaga = "INSERT INTO vagas (nome, descricao, salario, id_empresa, id_competencias) VALUES (?, ?, ?, ?, ?) RETURNING id"
 
     try {
-        PreparedStatement stmtVaga = con.prepareStatement(sqlVaga, Statement.RETURN_GENERATED_KEYS)
+        PreparedStatement stmtVaga = con.prepareStatement(InserirVaga, Statement.RETURN_GENERATED_KEYS)
         stmtVaga.setString(1, nome)
         stmtVaga.setString(2, descricao)
         stmtVaga.setDouble(3, salario)
@@ -93,7 +88,6 @@ static void cadastrarVaga(List<DAO.VagasDB> vagas, Connection con, Scanner scann
             if (generatedKeys.next()) {
                 vagaId = generatedKeys.getInt(1)
             }
-            // Inserir associações de competências na tabela vaga_competencias
             for (int idComp : competenciasAssociadas) {
                 associarCompetencia(vagaId, idCompetencia, con)
             }

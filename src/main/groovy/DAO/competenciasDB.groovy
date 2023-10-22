@@ -9,7 +9,7 @@ import static DAO.CandidatoDB.capturarEntrada
 class competenciasDB {
 
     static void cadastrarCompetencia(Connection con, Scanner scanner) {
-        def nomeCompetencia = capturarEntrada("Nome da competência: ", scanner)
+        String nomeCompetencia = capturarEntrada("Nome da competência: ", scanner)
 
         // Instrução SQL para inserir a competência
         String sqlCompetencia = "INSERT INTO competencias (nome) VALUES (?);"

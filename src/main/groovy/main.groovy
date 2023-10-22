@@ -3,13 +3,17 @@ import DAO.EmpresaDB
 import DAO.conexao
 import DAO.VagasDB
 import DAO.competenciasDB
+import Users.Candidato
+import Users.Empresa
+
+import java.sql.Connection
 
 static void main(String[] args) {
-    def con = new conexao().getConnection()
-    def candidatos = []
-    def empresas = []
-    def vagas = []
-    def scanner = new Scanner(System.in)
+    Connection con = new conexao().getConnection()
+    List<Candidato> candidatos = []
+    List<Empresa> empresas = []
+    List<VagasDB> vagas = []
+    Scanner scanner = new Scanner(System.in)
 
     menu: while (true) {
         println("Escolha uma opção:\n")
@@ -21,7 +25,7 @@ static void main(String[] args) {
         println("[6] Listar Vagas")
         println("[7] Cadastrar competências")
         println("[0] Sair")
-        def opcao = scanner.nextLine()
+        String opcao = scanner.nextLine()
 
         switch (opcao) {
             case "1":
