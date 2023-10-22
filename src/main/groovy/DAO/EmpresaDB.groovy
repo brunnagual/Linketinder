@@ -1,4 +1,4 @@
-package BD
+package DAO
 
 import Users.Empresa
 

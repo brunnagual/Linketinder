@@ -1,12 +1,11 @@
-package BD
+package DAO
 
-import java.lang.reflect.Array
+
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 import java.sql.Statement
-import java.util.Scanner
 
 //-------------------------------- Listar Vagas -------------------------------------
 static void listarVagas(Connection con) {
@@ -41,7 +40,7 @@ static void listarVagas(Connection con) {
 
 //-------------------------------- Cadastro Vagas -------------------------------------
 
-static void cadastrarVaga(List<BD.VagasDB> vagas,Connection con, Scanner scanner) {
+static void cadastrarVaga(List<DAO.VagasDB> vagas, Connection con, Scanner scanner) {
     String nome = capturarEntrada("Nome da Vaga: ", scanner)
     String descricao = capturarEntrada("Descrição da Vaga: ", scanner)
     String salarioStr = capturarEntrada("Salario: ", scanner)

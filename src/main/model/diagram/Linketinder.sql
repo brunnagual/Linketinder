@@ -49,6 +49,7 @@ CREATE TABLE  vagas  (
     descricao   character varying(500) NOT NULL,
     salario  decimal NOT NULL,
     id_competencias  int NOT NULL,
+    FOREIGN KEY (id_empresas) REFERENCES  empresas(id),
     FOREIGN KEY (id_competencias) REFERENCES  competencias(id)
 );
 
