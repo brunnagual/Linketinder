@@ -4,7 +4,7 @@ import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.SQLException
 
-class competenciasDB {
+class CompetenciasDB {
 
     static void cadastrarCompetencia(String nomeCompetencia) {
         Connection con = new Conexao().getConnection()

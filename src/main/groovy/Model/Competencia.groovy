@@ -1,6 +1,6 @@
 package Model
 
-import DAO.competenciasDB
+import DAO.CompetenciasDB
 
 class Competencia {
     String nomeCompetencias
@@ -16,6 +16,6 @@ class Competencia {
             println("Competência invalida")
             nomeCompetencia = scanner.nextLine()
         }
-        competenciasDB.cadastrarCompetencia(nomeCompetencia)
+        CompetenciasDB.cadastrarCompetencia(nomeCompetencia)
     }
 }

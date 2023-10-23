@@ -1,7 +1,6 @@
 import DAO.CandidatoDB
 import DAO.EmpresaDB
 import DAO.VagasDB
-import DAO.competenciasDB
 import Model.Candidato
 import Model.Competencia
 import Model.Empresa
