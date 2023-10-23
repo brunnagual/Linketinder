@@ -1,15 +1,12 @@
 import DAO.CandidatoDB
 import DAO.EmpresaDB
-import DAO.conexao
 import DAO.VagasDB
 import DAO.competenciasDB
-import Users.Candidato
-import Users.Empresa
-
-import java.sql.Connection
+import Model.Candidato
+import Model.Competencia
+import Model.Empresa
 
 static void main(String[] args) {
-    Connection con = new conexao().getConnection()
     List<Candidato> candidatos = []
     List<Empresa> empresas = []
     List<VagasDB> vagas = []
@@ -29,25 +26,25 @@ static void main(String[] args) {
 
         switch (opcao) {
             case "1":
-                CandidatoDB.listarCandidatos(con)
+                CandidatoDB.listarCandidatos()
                 break
             case "2":
-                EmpresaDB.listarEmpresas(con)
+                EmpresaDB.listarEmpresas()
                 break
             case "3":
-                Candidato.cadastrarCandidato(candidatos,con, scanner)
+                Candidato.cadastrarCandidato(candidatos, scanner)
                 break
             case "4":
-                Empresa.cadastrarEmpresa(empresas,con, scanner)
+                Empresa.cadastrarEmpresa(empresas, scanner)
                 break
             case "5":
-                VagasDB.cadastrarVaga(vagas,con, scanner)
+                VagasDB.cadastrarVaga(vagas, scanner)
                 break
             case "6":
-                VagasDB.listarVagas(con)
+                VagasDB.listarVagas()
                 break
             case "7":
-                competenciasDB.cadastrarCompetencia(con, scanner)
+                Competencia.cadastrarCompetencia(scanner)
                 break
             case "0":
                 println("Saindo do programa.")

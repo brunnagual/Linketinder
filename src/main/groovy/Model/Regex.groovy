@@ -1,4 +1,4 @@
-package Users
+package Model
 
 class Regex {
     static String regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{1,35}$/
@@ -8,19 +8,16 @@ class Regex {
     static String regexCpf = /^\d{11}$/
     static String regexDrescricao = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{1,50}$/
     static String regexSalario = /^\d+(\.\d{1,2})?$/
-    static String regexNumero = /^(1?[0-9]|20)$/
+//    static String regexNumero = /^(1?[0-9]|20)$/
 
 
-    static validarEntrada(regex, String mensagem, Scanner scanner) {
-        while (true) {
-            print(mensagem)
-            String entrada = scanner.nextLine()
+    static boolean validarEntrada(regex, String entrada) {
 
             if (entrada.matches(regex)) {
-                return entrada
+                return true
             } else {
-                println("Entrada inválida. Por favor, insira uma entrada válida.")
+                return false
             }
         }
     }
-}
+

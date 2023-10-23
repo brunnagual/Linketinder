@@ -5,13 +5,13 @@ import java.sql.DriverManager
 import java.sql.ResultSet
 import java.sql.Statement
 
-class conexao {
+class Conexao {
     String url
     String usuario
     String senha
     Connection con
 
-    conexao(){
+    Conexao(){
         url = "jdbc:postgresql://localhost:5432/postgres"
         usuario = "postgres"
         senha = "postgres"
@@ -35,6 +35,17 @@ class conexao {
             return null
         }
     }
+    static void desconectar(Connection con) {
+        try {
+            if (con != null && !con.isClosed()) {
+                con.close()
+                println("------ Desconexão do Banco Realizada com sucesso !!! ------")
+            }
+        } catch (Exception e) {
+            e.printStackTrace()
+        }
+    }
+
     Connection getConnection() {
         return con
     }

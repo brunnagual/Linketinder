@@ -6,11 +6,14 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import java.sql.Statement
 
-import Users.Candidato
+import Model.Candidato
 
-class CandidatoDB {
+class CandidatoDB{
 
-    static void listarCandidatos(Connection con) {
+    private static final String SQL_INSERIR_CANDIDATO = "INSERT INTO public.candidatos(nome, sobrenome, email, cep, cpf, pais, descricao, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
+
+    static void listarCandidatos() {
+        Connection con = new Conexao().getConnection()
         String sql = "SELECT * FROM candidatos"
         ResultSet conjuntoResultados = null
         try {
@@ -21,59 +24,17 @@ class CandidatoDB {
                 exibirInformacoesCandidato(conjuntoResultados)
             }
         } catch (SQLException e) {
-            e.printStackTrace()
+            handleSQLException(e)
         } finally {
             fecharConjuntoResultados(conjuntoResultados)
         }
+        Conexao.desconectar (con)
     }
 
-    static void fecharConjuntoResultados(ResultSet conjuntoResultados) {
-        if (conjuntoResultados != null) {
-            try {
-                conjuntoResultados.close()
-            } catch (SQLException e) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    static void cadastrarCandidato(Candidato candidato, Connection con, Scanner scanner) {
-        String nome = candidato.nome
-        String sobrenome = candidato.sobrenome
-        String email = candidato.email
-        String cep = candidato.cep
-        long cpf = candidato.cpf
-        String descricaoPessoal = candidato.descricaoPessoal
-
-        int candidatoId = inserirCandidatoNoBanco(con, nome, sobrenome, email, cep, cpf, descricaoPessoal)
-
-        if (candidatoId != -1) {
-            listarTodasCompetencias(con)
-
-            while (associarCompetencia(candidatoId, con, scanner)) {
-            }
-
-            println("Candidato cadastrado com sucesso.")
-        } else {
-            println("Falha ao cadastrar o candidato.")
-        }
-    }
-
-    static void exibirInformacoesCandidato(ResultSet conjuntoResultados) {
-        String nome = conjuntoResultados.getString("nome")
-        String sobrenome = conjuntoResultados.getString("sobrenome")
-        String email = conjuntoResultados.getString("email")
-        String cep = conjuntoResultados.getString("cep")
-        String descricaoPessoal = conjuntoResultados.getString("descricao")
-
-        println("$nome | $sobrenome | $email | $cep | $descricaoPessoal")
-    }
-
-    static int inserirCandidatoNoBanco(Connection con, String nome, String sobrenome, String email, String cep, long cpf, String descricaoPessoal) {
-        String sqlInserirCandidato = "INSERT INTO public.candidatos(nome, sobrenome, email, cep, cpf, pais, descricao, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
-
+    static int inserirCandidatoNoBanco(String nome, String sobrenome, String email, String cep, long cpf, String descricaoPessoal) {
+        Connection con = new Conexao().getConnection()
         try {
-            PreparedStatement stmtCandidato = con.prepareStatement(sqlInserirCandidato, Statement.RETURN_GENERATED_KEYS)
+            PreparedStatement stmtCandidato = con.prepareStatement(SQL_INSERIR_CANDIDATO, Statement.RETURN_GENERATED_KEYS)
             stmtCandidato.setString(1, nome)
             stmtCandidato.setString(2, sobrenome)
             stmtCandidato.setString(3, email)
@@ -94,33 +55,79 @@ class CandidatoDB {
 
                 return candidatoId
             }
-        } catch (Exception e) {
-            e.printStackTrace()
+        } catch (SQLException e) {
+            handleSQLException(e)
         }
         return -1
+        Conexao.desconectar (con)
     }
 
-    static void listarTodasCompetencias(Connection con) {
-        String sql = "SELECT * FROM competencias"
-        ResultSet res = null
-
+    static void exibirInformacoesCandidato(ResultSet conjuntoResultados) {
         try {
-            PreparedStatement stmt = con.prepareStatement(sql)
-            res = stmt.executeQuery()
+            String nome = conjuntoResultados.getString("nome")
+            String sobrenome = conjuntoResultados.getString("sobrenome")
+            String email = conjuntoResultados.getString("email")
+            String cep = conjuntoResultados.getString("cep")
+            String descricaoPessoal = conjuntoResultados.getString("descricao")
 
-            println("Competências disponíveis:")
-            while (res.next()) {
-                int idCompetencia = res.getInt("id")
-                String nomeCompetencia = res.getString("nome")
-                println("$idCompetencia: $nomeCompetencia")
-            }
+            println("$nome | $sobrenome | $email | $cep | $descricaoPessoal")
         } catch (SQLException e) {
-            e.printStackTrace()
+            handleSQLException(e)
         }
     }
 
-    static boolean associarCompetencia(int candidatoId, Connection con, Scanner scanner) {
-        Integer idCompetencia = capturarEntrada("Digite o número da competência que deseja associar: ", scanner)
+    static void handleSQLException(SQLException e) {
+        e.printStackTrace()
+    }
+
+    static void fecharConjuntoResultados(ResultSet conjuntoResultados) {
+        if (conjuntoResultados != null) {
+            try {
+                conjuntoResultados.close()
+            } catch (SQLException e) {
+                handleSQLException(e)
+            }
+        }
+    }
+
+    static void cadastrarCandidato(Candidato candidato, Scanner scanner) {
+        Connection con = new Conexao().getConnection()
+
+        String nome = candidato.nome
+        String sobrenome = candidato.sobrenome
+        String email = candidato.email
+        String cep = candidato.cep
+        long cpf = candidato.cpf
+        String descricaoPessoal = candidato.descricaoPessoal
+
+        int candidatoId = inserirCandidatoNoBanco(nome, sobrenome, email, cep, cpf, descricaoPessoal)
+
+        if (candidatoId != -1) {
+            listarTodasCompetencias()
+
+            while (associarCompetencia(candidatoId,scanner)) {
+            }
+
+            mostrarSucesso("Candidato")
+        } else {
+            println("Falha ao cadastrar o candidato.")
+        }
+        Conexao.desconectar (con)
+    }
+
+    static void listarTodasCompetencias() {
+        Connection con = new Conexao().getConnection()
+        try {
+            DatabaseUtil.listarTodasCompetencias(con)
+        } finally {
+            Conexao.desconectar(con)
+        }
+    }
+
+    static boolean associarCompetencia(int candidatoId, Scanner scanner) {
+        Connection con = new Conexao().getConnection()
+
+        int idCompetencia = capturarEntradaInt("Digite o número da competência que deseja associar: ", scanner)
 
         String sqlVerificarCompetencia = "SELECT * FROM competencias WHERE id = ?"
         try {
@@ -129,14 +136,13 @@ class CandidatoDB {
             ResultSet resultado = stmtVerificarCompetencia.executeQuery()
 
             if (resultado.next()) {
-
                 String sqlAssociacao = "INSERT INTO public.candidatos_competencias(id_candidatos, id_competencias) VALUES (?, ?);"
                 PreparedStatement stmtAssociacao = con.prepareStatement(sqlAssociacao)
                 stmtAssociacao.setInt(1, candidatoId)
                 stmtAssociacao.setInt(2, idCompetencia)
                 stmtAssociacao.executeUpdate()
 
-                println("Competência associada com sucesso.")
+                println("Competência cadastrada com sucesso")
             } else {
                 println("Competência não encontrada. Tente novamente.")
             }
@@ -145,12 +151,18 @@ class CandidatoDB {
         }
 
         println("Deseja associar outra competência? (S/N): ")
-        String resposta = scanner.nextLine().toUpperCase()
-        return resposta == "S"
+        String resposta = scanner.next().toUpperCase()
+        return resposta.equals("S")
+
+        Conexao.desconectar (con)
     }
 
-    static String capturarEntrada(String mensagem, Scanner scanner) {
+    static int capturarEntradaInt(String mensagem, Scanner scanner) {
         print(mensagem)
-        return scanner.nextLine()
+        return scanner.nextInt()
+    }
+
+    static void mostrarSucesso(String tipo) {
+        println("$tipo cadastrado com sucesso.")
     }
 }

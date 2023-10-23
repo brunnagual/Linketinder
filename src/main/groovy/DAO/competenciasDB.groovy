@@ -4,12 +4,10 @@ import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.SQLException
 
-import static DAO.CandidatoDB.capturarEntrada
-
 class competenciasDB {
 
-    static void cadastrarCompetencia(Connection con, Scanner scanner) {
-        String nomeCompetencia = capturarEntrada("Nome da competência: ", scanner)
+    static void cadastrarCompetencia(String nomeCompetencia) {
+        Connection con = new Conexao().getConnection()
 
         String sqlInserirCompetencia = "INSERT INTO competencias (nome) VALUES (?);"
 
@@ -26,6 +24,7 @@ class competenciasDB {
         } catch (SQLException e) {
             e.printStackTrace()
         }
+        Conexao.desconectar (con)
     }
 
 }

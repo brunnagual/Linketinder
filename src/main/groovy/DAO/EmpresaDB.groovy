@@ -6,10 +6,15 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
-import Users.Empresa
+import Model.Empresa
+
+import java.sql.Statement
 
 class EmpresaDB {
-    static void listarEmpresas(Connection con) {
+
+    static void listarEmpresas() {
+        Connection con = new Conexao().getConnection()
+
         String sql = "SELECT * FROM empresas"
         ResultSet conjuntoResultados = null
         try {
@@ -21,20 +26,24 @@ class EmpresaDB {
         } finally {
             fecharConjuntoResultados(conjuntoResultados)
         }
+        Conexao.desconectar (con)
     }
 
-    static void cadastrarEmpresa(Empresa empresas, Connection con, Scanner scanner) {
+    static void cadastrarEmpresa(Empresa empresas, Scanner scanner) {
+        Connection con = new Conexao().getConnection()
+
         String nome = empresas.nome
         String email = empresas.email
         String cep = empresas.cep
         String cnpj = empresas.cnpj
         String descricao = empresas.descricao
 
-        if (inserirEmpresaNoBanco(con, nome, email, cep, cnpj, descricao)) {
+        if (inserirEmpresaNoBanco(nome, email, cep, cnpj, descricao)) {
             println("Empresa cadastrada com sucesso.")
         } else {
             println("Falha ao cadastrar a empresa.")
         }
+        Conexao.desconectar (con)
     }
 
     static void exibirEmpresas(ResultSet conjuntoResultados) {
@@ -52,7 +61,8 @@ class EmpresaDB {
         }
     }
 
-    static boolean inserirEmpresaNoBanco(Connection con, String nome, String email, String cep, String cnpj, String descricao) {
+    static boolean inserirEmpresaNoBanco(String nome, String email, String cep, String cnpj, String descricao) {
+        Connection con = new Conexao().getConnection()
         String sqlInserirEmpresa = "INSERT INTO public.empresas(nome, email, cep, cnpj, pais, descricao, senha, vagas) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
 
         try {
@@ -72,6 +82,7 @@ class EmpresaDB {
             e.printStackTrace()
             return false;
         }
+        Conexao.desconectar (con)
     }
 
     static String capturarEntrada(String mensagem, Scanner scanner) {
