@@ -7,8 +7,6 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import java.sql.Statement
 
-import static DAO.CandidatoDB.handleSQLException
-
 class VagasDB{
 static void listarVagas() {
 
