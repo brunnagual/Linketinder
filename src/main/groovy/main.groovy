@@ -15,7 +15,7 @@ static void main(String[] args) {
     List<VagasDB> vagas = []
     Scanner scanner = new Scanner(System.in)
 
-    menu: while (true) {
+    menuOpcoes: while (true) {
         println("Escolha uma opção:\n")
         println("[1] Listar Candidatos")
         println("[2] Listar Empresas")
@@ -35,10 +35,10 @@ static void main(String[] args) {
                 EmpresaDB.listarEmpresas(con)
                 break
             case "3":
-                CandidatoDB.cadastrarCandidato(candidatos,con, scanner)
+                Candidato.cadastrarCandidato(candidatos,con, scanner)
                 break
             case "4":
-                EmpresaDB.cadastrarEmpresa(empresas,con, scanner)
+                Empresa.cadastrarEmpresa(empresas,con, scanner)
                 break
             case "5":
                 VagasDB.cadastrarVaga(vagas,con, scanner)
@@ -51,7 +51,7 @@ static void main(String[] args) {
                 break
             case "0":
                 println("Saindo do programa.")
-                break menu
+                break menuOpcoes
             default:
                 println("Opção inválida.")
         }

@@ -11,11 +11,10 @@ class competenciasDB {
     static void cadastrarCompetencia(Connection con, Scanner scanner) {
         String nomeCompetencia = capturarEntrada("Nome da competência: ", scanner)
 
-        // Instrução SQL para inserir a competência
-        String sqlCompetencia = "INSERT INTO competencias (nome) VALUES (?);"
+        String sqlInserirCompetencia = "INSERT INTO competencias (nome) VALUES (?);"
 
         try {
-            PreparedStatement stmtCompetencia = con.prepareStatement(sqlCompetencia)
+            PreparedStatement stmtCompetencia = con.prepareStatement(sqlInserirCompetencia)
             stmtCompetencia.setString(1, nomeCompetencia)
 
             int rowsAffected = stmtCompetencia.executeUpdate()

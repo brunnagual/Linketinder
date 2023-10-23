@@ -7,6 +7,7 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import java.sql.Statement
 
+class VagasDB{
 static void listarVagas(Connection con) {
     String sql = "SELECT v.id, v.nome, v.descricao, v.salario, e.nome AS empresa FROM vagas AS v, empresas AS e WHERE v.id_empresa = e.id;"
     ResultSet res = null
@@ -165,4 +166,5 @@ static int consultarIdEmpresa(String nomeEmpresa, Connection con) {
 static String capturarEntrada(String mensagem, Scanner scanner) {
     print(mensagem)
     return scanner.nextLine()
+}
 }
