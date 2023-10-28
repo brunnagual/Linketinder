@@ -1,4 +1,5 @@
 import Controller.CandidatoController
+import Controller.EmpresaController
 import DAO.CandidatoDAO
 import DAO.EmpresaDAO
 import DAO.VagasDAO

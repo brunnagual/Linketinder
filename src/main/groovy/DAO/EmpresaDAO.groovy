@@ -1,5 +1,7 @@
 package DAO
 
+import Controller.EmpresaController
+import View.EmpresaView
 
 import java.sql.Connection
 import java.sql.PreparedStatement
@@ -18,11 +20,11 @@ class EmpresaDAO {
         try {
             PreparedStatement stmt = con.prepareStatement(sql)
             conjuntoResultados = stmt.executeQuery()
-            exibirEmpresas(conjuntoResultados)
+            EmpresaView.exibirEmpresas(conjuntoResultados)
         } catch (SQLException e) {
             e.printStackTrace()
         } finally {
-            fecharConjuntoResultados(conjuntoResultados)
+            EmpresaController.fecharConjuntoResultados(conjuntoResultados)
         }
         ConexaoDAO.desconectar (con)
     }
@@ -44,21 +46,6 @@ class EmpresaDAO {
         ConexaoDAO.desconectar (con)
     }
 
-    static void exibirEmpresas(ResultSet conjuntoResultados) {
-        try {
-            while (conjuntoResultados.next()) {
-                String nome = conjuntoResultados.getString("nome")
-                String email = conjuntoResultados.getString("email")
-                String cep = conjuntoResultados.getString("cep")
-                String descricao = conjuntoResultados.getString("descricao")
-
-                println("$nome | $email | $cep | $descricao")
-            }
-        } catch (SQLException e) {
-            e.printStackTrace()
-        }
-    }
-
     static boolean inserirEmpresaNoBanco(String nome, String email, String cep, String cnpj, String descricao) {
         Connection con = new ConexaoDAO().getConnection()
         String sqlInserirEmpresa = "INSERT INTO public.empresas(nome, email, cep, cnpj, pais, descricao, senha, vagas) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
@@ -76,6 +63,7 @@ class EmpresaDAO {
 
             int rowsAffected = stmt.executeUpdate()
             return rowsAffected > 0;
+
         } catch (Exception e) {
             e.printStackTrace()
             return false;
@@ -83,18 +71,4 @@ class EmpresaDAO {
         ConexaoDAO.desconectar (con)
     }
 
-    static String capturarEntrada(String mensagem, Scanner scanner) {
-        print(mensagem)
-        return scanner.nextLine()
-    }
-
-    static void fecharConjuntoResultados(ResultSet conjuntoResultados) {
-        if (conjuntoResultados != null) {
-            try {
-                conjuntoResultados.close()
-            } catch (SQLException e) {
-                e.printStackTrace()
-            }
-        }
-    }
 }

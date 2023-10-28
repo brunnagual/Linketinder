@@ -1,5 +1,7 @@
 package DAO
 
+import Controller.RegexController
+
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
@@ -7,7 +9,6 @@ import java.sql.SQLException
 import java.sql.Statement
 
 import Model.CandidatoModel
-import Controller.CandidatoController
 
 class CandidatoDAO {
     private static final String SQL_INSERIR_CANDIDATO = "INSERT INTO public.candidatos(nome, sobrenome, email, cep, cpf, pais, descricao, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
@@ -108,7 +109,7 @@ class CandidatoDAO {
                 listarTodasCompetencias(con)
                 while (associarCompetencia(con, candidatoId, scanner)) {
                 }
-                CandidatoController.mostrarSucesso("Candidato")
+                RegexController.mostrarSucesso("Candidato")
             } else {
                 println("Falha ao cadastrar o candidato.")
             }
@@ -126,7 +127,7 @@ class CandidatoDAO {
     }
 
     static boolean associarCompetencia(Connection con, int candidatoId, Scanner scanner) {
-        int idCompetencia = CandidatoController.capturarEntradaInt("Digite o número da competência que deseja associar: ", scanner)
+        int idCompetencia = RegexController.capturarEntradaInt("Digite o número da competência que deseja associar: ", scanner)
 
         try {
             PreparedStatement stmtVerificarCompetencia = con.prepareStatement(SQL_SELECT_COMPETENCIA)
