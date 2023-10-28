@@ -26,4 +26,8 @@ class DatabaseUtilDAO {
             e.printStackTrace()
         }
     }
+
+    static void handleSQLException(SQLException e) {
+        e.printStackTrace()
+    }
 }

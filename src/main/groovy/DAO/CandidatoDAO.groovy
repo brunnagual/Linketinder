@@ -27,7 +27,7 @@ class CandidatoDAO {
                 exibirInformacoesCandidato(conjuntoResultados)
             }
         } catch (SQLException e) {
-            handleSQLException(e)
+            DatabaseUtilDAO.handleSQLException(e)
         } finally {
             fecharConjuntoResultados(conjuntoResultados)
         }
@@ -58,7 +58,7 @@ class CandidatoDAO {
                 return candidatoId
             }
         } catch (SQLException e) {
-            handleSQLException(e)
+            DatabaseUtilDAO.handleSQLException(e)
         }
         return -1
     }
@@ -73,12 +73,8 @@ class CandidatoDAO {
 
             println("$nome | $sobrenome | $email | $cep | $descricaoPessoal")
         } catch (SQLException e) {
-            handleSQLException(e)
+            DatabaseUtilDAO.handleSQLException(e)
         }
-    }
-
-    static void handleSQLException(SQLException e) {
-        e.printStackTrace()
     }
 
     static void fecharConjuntoResultados(ResultSet conjuntoResultados) {
@@ -86,7 +82,7 @@ class CandidatoDAO {
             try {
                 conjuntoResultados.close()
             } catch (SQLException e) {
-                handleSQLException(e)
+                DatabaseUtilDAO.handleSQLException(e)
             }
         }
     }

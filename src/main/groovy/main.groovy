@@ -1,16 +1,18 @@
 import Controller.CandidatoController
 import Controller.EmpresaController
+import Controller.VagasController
 import DAO.CandidatoDAO
 import DAO.EmpresaDAO
 import DAO.VagasDAO
 import Model.CandidatoModel
 import Model.CompetenciaModel
 import Model.EmpresaModel
+import Model.VagasModel
 
 static void main(String[] args) {
     List<CandidatoModel> candidatos = []
     List<EmpresaModel> empresas = []
-    List<VagasDAO> vagas = []
+    List<VagasModel> vagas = []
     Scanner scanner = new Scanner(System.in)
 
     while (true) {
