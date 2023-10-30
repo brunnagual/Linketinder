@@ -8,6 +8,7 @@ import Model.CandidatoModel
 import Model.CompetenciaModel
 import Model.EmpresaModel
 import Model.VagasModel
+import View.CandidatoView
 
 static void main(String[] args) {
     List<CandidatoModel> candidatos = []
@@ -21,13 +22,13 @@ static void main(String[] args) {
 
         switch (opcao) {
             case "1":
-                CandidatoDAO.listarCandidatos()
+                CandidatoView.exibirInformacoesCandidato()
                 break
             case "2":
                 EmpresaDAO.listarEmpresas()
                 break
             case "3":
-                CandidatoController.cadastrarCandidato(candidatos, scanner)
+                CandidatoView.cadastrarCandidato(scanner)
                 break
             case "4":
                 EmpresaController.cadastrarEmpresa(empresas, scanner)

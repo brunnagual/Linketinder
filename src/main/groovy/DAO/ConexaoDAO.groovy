@@ -1,5 +1,7 @@
 package DAO
 
+import org.postgresql.core.SqlCommand
+
 import java.sql.Connection
 import java.sql.DriverManager
 
@@ -9,7 +11,9 @@ class ConexaoDAO {
     private String senha
     private Connection con
 
-    ConexaoDAO() {
+    private static ConexaoDAO instance = new ConexaoDAO()
+
+    private ConexaoDAO() {
         url = "jdbc:postgresql://localhost:5432/postgres"
         usuario = "postgres"
         senha = "postgres"
@@ -20,6 +24,10 @@ class ConexaoDAO {
         } catch (Exception e) {
             e.printStackTrace()
         }
+    }
+
+    static ConexaoDAO getInstance() {
+        return instance
     }
 
     static void desconectar(Connection con) {
@@ -33,6 +41,7 @@ class ConexaoDAO {
             }
         }
     }
+
     Connection getConnection() {
         return con
     }

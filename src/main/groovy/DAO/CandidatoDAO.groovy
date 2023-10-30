@@ -18,7 +18,7 @@ class CandidatoDAO {
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
 
     private static final String SQL_SELECT_ALL_CANDIDATOS =
-            "SELECT * FROM candidatos"
+            "SELECT nome, sobrenome, email, cep, cpf, pais, descricao, senha  FROM candidatos"
 
     private static final String SQL_SELECT_COMPETENCIA =
             "SELECT * FROM competencias WHERE id = ?"
@@ -28,27 +28,37 @@ class CandidatoDAO {
 
     static List<CandidatoModel> listarCandidatos() {
 
-        // mudar logica vai trazer a lista do banco.
-        Connection con = new ConexaoDAO().getConnection()
+        Connection con = ConexaoDAO.getInstance().getConnection()
+
         ResultSet conjuntoResultados = null
         try {
             PreparedStatement stmt = con.prepareStatement(SQL_SELECT_ALL_CANDIDATOS)
             conjuntoResultados = stmt.executeQuery()
 
+            List<CandidatoModel> ListaCandidatos = []
             while (conjuntoResultados.next()) {
-                CandidatoView.exibirInformacoesCandidato(conjuntoResultados)
+
+                String nome = conjuntoResultados.getString(1)
+                String sobrenome = conjuntoResultados.getString(2)
+                String email = conjuntoResultados.getString(3)
+                String cep = conjuntoResultados.getString(4)
+                Long cpf = conjuntoResultados.getLong(5)
+                String descricaoPessoal = conjuntoResultados.getString(7)
+
+                CandidatoModel candidato = new CandidatoModel(nome,sobrenome,email,cep,cpf,descricaoPessoal,[])
+                ListaCandidatos << candidato
             }
+            return ListaCandidatos
+
         } catch (SQLException e) {
             DatabaseUtilDAO.handleSQLException(e)
-        } finally {
-            fecharConjuntoResultados(conjuntoResultados)
         }
     }
 
     static int inserirCandidatoNoBanco(String nome, String sobrenome, String email, String cep, long cpf,
                                        String descricaoPessoal) {
 
-        Connection con = new ConexaoDAO().getConnection()
+        Connection con = ConexaoDAO.getInstance().getConnection()
         try {
             PreparedStatement stmtCandidato = con.prepareStatement(SQL_INSERIR_CANDIDATO, Statement.RETURN_GENERATED_KEYS)
             stmtCandidato.setString(1, nome)
@@ -95,9 +105,8 @@ class CandidatoDAO {
         }
     }
 
-    static boolean associarCompetencia(Connection con, int candidatoId, Scanner scanner) {
-        int idCompetencia = RegexController.capturarEntradaInt("Digite o número da competência " +
-                "que deseja associar: ", scanner)
+    static boolean associarCompetencia(int candidatoId, int idCompetencia) {
+        Connection con = ConexaoDAO.getInstance().getConnection()
 
         try {
             PreparedStatement stmtVerificarCompetencia = con.prepareStatement(SQL_SELECT_COMPETENCIA)
@@ -117,9 +126,5 @@ class CandidatoDAO {
         } catch (SQLException e) {
             e.printStackTrace()
         }
-
-        println("Deseja associar outra competência? (S/N): ")
-        String resposta = scanner.next().toUpperCase()
-        return resposta.equals("S")
     }
 }
