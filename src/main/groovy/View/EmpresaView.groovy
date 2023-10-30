@@ -18,6 +18,5 @@ class EmpresaView {
             e.printStackTrace()
         }
 
-
     }
 }

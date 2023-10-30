@@ -1,8 +1,11 @@
 package Controller
 
+import DAO.ConexaoDAO
 import Model.CandidatoModel
 import DAO.CandidatoDAO
 import Model.RegexModel
+
+import java.sql.Connection
 
 class CandidatoController {
     static CandidatoModel cadastrarCandidato(List<CandidatoModel> candidatos, Scanner scanner) {
@@ -16,9 +19,31 @@ class CandidatoController {
         ArrayList<String> competencias = new ArrayList<String>()
         CandidatoModel candidato = new CandidatoModel(nome, sobrenome, email, cep, cpf, descricaoPessoal, competencias)
 
-        CandidatoDAO.cadastrarCandidato(candidato, scanner)
+        cadastrarCandidato(candidato, scanner)
 
         return candidato
+    }
+
+    static boolean cadastrarCandidato(CandidatoModel candidato, Scanner scanner) {
+        Connection con = null
+
+        try {
+            con = new ConexaoDAO().getConnection()
+
+            int candidatoId = CandidatoDAO.inserirCandidatoNoBanco(candidato.nome, candidato.sobrenome, candidato.email,
+                    candidato.cep, candidato.cpf, candidato.descricaoPessoal)
+
+            if (candidatoId != -1) {
+                CandidatoDAO.listarTodasCompetencias(con)
+                while (CandidatoDAO.associarCompetencia(con, candidatoId, scanner)) {
+                }
+                RegexController.mostrarSucesso("Candidato")
+            } else {
+                println("Falha ao cadastrar o candidato.")
+            }
+        } finally {
+            ConexaoDAO.desconectar(con)
+        }
     }
 
 }

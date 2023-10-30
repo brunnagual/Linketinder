@@ -1,13 +1,15 @@
 package DAO
 
+import Controller.RegexController
+import Model.CandidatoModel
+import Model.VagasModel
+import View.VagasView
+
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 import java.sql.Statement
-import Model.VagasModel
-
-import static Controller.RegexController.capturarEntrada
 
 class VagasDAO {
 

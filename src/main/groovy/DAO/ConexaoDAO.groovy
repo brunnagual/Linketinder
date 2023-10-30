@@ -17,7 +17,6 @@ class ConexaoDAO {
         try {
             Class.forName("org.postgresql.Driver")
             con = DriverManager.getConnection(url, usuario, senha)
-            println("------ Conexão com o Banco Realizada com sucesso !!! ------")
         } catch (Exception e) {
             e.printStackTrace()
         }
@@ -28,7 +27,6 @@ class ConexaoDAO {
             try {
                 if (!con.isClosed()) {
                     con.close()
-                    println("------ Desconexão do Banco Realizada com sucesso !!! ------")
                 }
             } catch (Exception e) {
                 e.printStackTrace()
