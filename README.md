@@ -6,7 +6,7 @@ O tracking do projeto original está na branch atualização.
 
 - Brunna adriane de Jesus Gualberto.
 
----------- Clean Code -----------
+---------- Clean Code e SOLID -----------
 
 Nessa etapa, foram realizadas as seguintes alterações no código:
 
@@ -23,3 +23,5 @@ Nessa etapa, foram realizadas as seguintes alterações no código:
  - Refatorei os métodos para terem apenas uma responsabilidade: Dividi os métodos em funções menores, cada uma com uma única responsabilidade, melhorando a manutenção e a extensibilidade do código.
 
 Essas alterações visaram aprimorar a qualidade e a legibilidade do código, tornando-o mais limpo e de fácil compreensão.
+
+- Ajustei as funções para Princípio da inversão de dependência.
