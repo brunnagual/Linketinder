@@ -1,9 +1,5 @@
 package DAO
 
-import Controller.CandidatoController
-import Controller.RegexController
-import View.CandidatoView
-
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
@@ -85,16 +81,6 @@ class CandidatoDAO {
             DatabaseUtilDAO.handleSQLException(e)
         }
         return -1
-    }
-
-    static void fecharConjuntoResultados(ResultSet conjuntoResultados) {
-        if (conjuntoResultados != null) {
-            try {
-                conjuntoResultados.close()
-            } catch (SQLException e) {
-                DatabaseUtilDAO.handleSQLException(e)
-            }
-        }
     }
 
     static void listarTodasCompetencias(Connection con) {

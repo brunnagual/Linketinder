@@ -1,18 +1,11 @@
-import Controller.CandidatoController
-import Controller.EmpresaController
 import Controller.VagasController
-import DAO.CandidatoDAO
-import DAO.EmpresaDAO
 import DAO.VagasDAO
-import Model.CandidatoModel
 import Model.CompetenciaModel
-import Model.EmpresaModel
 import Model.VagasModel
 import View.CandidatoView
+import View.EmpresaView
 
 static void main(String[] args) {
-    List<CandidatoModel> candidatos = []
-    List<EmpresaModel> empresas = []
     List<VagasModel> vagas = []
     Scanner scanner = new Scanner(System.in)
 
@@ -25,13 +18,13 @@ static void main(String[] args) {
                 CandidatoView.exibirInformacoesCandidato()
                 break
             case "2":
-                EmpresaDAO.listarEmpresas()
+                EmpresaView.exibirInformacoesEmpresa()
                 break
             case "3":
                 CandidatoView.cadastrarCandidato(scanner)
                 break
             case "4":
-                EmpresaController.cadastrarEmpresa(empresas, scanner)
+                EmpresaView.cadastrarEmpresa(scanner)
                 break
             case "5":
                 VagasController.cadastrarVaga(vagas, scanner)

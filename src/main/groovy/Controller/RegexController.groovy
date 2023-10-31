@@ -39,17 +39,9 @@ class RegexController {
         return entrada
     }
 
-    static String capturarEntrada(String mensagem, Scanner scanner) {
-        print(mensagem)
-        return scanner.nextLine()
-    }
-
     static int capturarEntradaInt(String mensagem, Scanner scanner) {
         print(mensagem)
         return scanner.nextInt()
     }
 
-    static void mostrarSucesso(String tipo) {
-        println("$tipo cadastrado com sucesso.")
-    }
 }

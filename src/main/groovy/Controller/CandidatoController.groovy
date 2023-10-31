@@ -3,7 +3,6 @@ package Controller
 import DAO.ConexaoDAO
 import Model.CandidatoModel
 import DAO.CandidatoDAO
-import Model.RegexModel
 
 import java.sql.Connection
 

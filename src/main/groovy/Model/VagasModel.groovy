@@ -13,5 +13,6 @@ class VagasModel {
         this.salario = salario
         this.nomeEmpresa = nomeEmpresa
         this.listarTodasCompetenciasVagas = competenciasVagas
+
     }
 }
