@@ -8,7 +8,8 @@ import java.util.ArrayList
 
 class DatabaseUtilDAO {
 
-    static void listarTodasCompetencias(Connection con) {
+    static void listarTodasCompetencias() {
+        Connection con = ConexaoDAO.getInstance().getConnection()
         String sql = "SELECT * FROM competencias"
         ResultSet res = null
 

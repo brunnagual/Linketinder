@@ -27,7 +27,7 @@ class EmpresaView {
         List<EmpresaModel> empresas = EmpresaController.listarEmpresas()
 
         for (EmpresaModel empresa: empresas){
-            println("$empresa.nome | $empresa.email | $empresa.cep | $empresa.cnpj | $empresa.descricao")
+            println("$empresa.id | $empresa.nome | $empresa.email | $empresa.cep | $empresa.cnpj | $empresa.descricao")
         }
     }
 

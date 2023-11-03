@@ -8,7 +8,7 @@ class RegexModel {
     static String regexCpf = /^\d{11}$/
     static String regexDrescricao = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{1,50}$/
     static String regexSalario = /^\d+(\.\d{1,2})?$/
-//    static String regexNumero = /^(1?[0-9]|20)$/
+    static String regexNumero = /\d+/
 
 
     static boolean validarEntrada(regex, String entrada) {

@@ -1,19 +1,28 @@
 package Controller
 
+import DAO.CandidatoDAO
+import DAO.ConexaoDAO
 import DAO.VagasDAO
+import Model.CandidatoModel
 import Model.RegexModel
 import Model.VagasModel
+import View.VagasView
+
+import java.sql.Connection
 
 class VagasController {
-    static void cadastrarVaga(List<VagasModel> Vagas, Scanner scanner) {
 
-        String nome = RegexController.validarEntrada( "Nome da vaga: ",RegexModel.regexNome, scanner)
-        String descricao = RegexController.validarEntrada( "Descrição da vaga: ",RegexModel.regexDrescricao, scanner)
-        double salario = RegexController.validarEntrada( "Salário: ",RegexModel.regexSalario, scanner) as double
-        String nomeEmpresa = RegexController.validarEntrada( "Empresa: ",RegexModel.regexNome, scanner)
+    static Double cadastrarVaga(VagasModel vaga, Scanner scanner) {
+        Connection con = ConexaoDAO.getInstance().getConnection()
+        int vagaId = VagasDAO.inserirVagasNoBanco(vaga)
 
-        VagasModel vaga = new VagasModel(nome, descricao, salario, nomeEmpresa)
+        return vagaId
+    }
+    static List<VagasModel> ListarVagas(){
+        return VagasDAO.listarVagas()
+    }
 
-        VagasDAO.cadastrarVaga(vaga, scanner)
+    static Boolean associarCompetencias(Integer vagaId, Integer idCompetencia){
+        return VagasDAO.associarCompetencia(vagaId, idCompetencia)
     }
 }

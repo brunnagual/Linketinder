@@ -1,12 +1,9 @@
-import Controller.VagasController
-import DAO.VagasDAO
 import Model.CompetenciaModel
-import Model.VagasModel
 import View.CandidatoView
 import View.EmpresaView
+import View.VagasView
 
 static void main(String[] args) {
-    List<VagasModel> vagas = []
     Scanner scanner = new Scanner(System.in)
 
     while (true) {
@@ -27,10 +24,10 @@ static void main(String[] args) {
                 EmpresaView.cadastrarEmpresa(scanner)
                 break
             case "5":
-                VagasController.cadastrarVaga(vagas, scanner)
+                VagasView.cadastrarVaga(scanner)
                 break
             case "6":
-                VagasDAO.listarVagas()
+                VagasView.exibirInformacoesVagas()
                 break
             case "7":
                 CompetenciaModel.cadastrarCompetencia(scanner)

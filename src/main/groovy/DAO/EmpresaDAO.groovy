@@ -74,7 +74,7 @@ class EmpresaDAO {
     "INSERT INTO public.empresas(nome, email, cep, cnpj, descricao) VALUES (?, ?, ?, ?, ?);"
 
     private static final String SQL_SELECT_ALL_EMPRESAS =
-            "SELECT nome, email, cep, cnpj, descricao  FROM empresas"
+            "SELECT nome, email, cep, cnpj, descricao, id  FROM empresas"
 
 
     static List<EmpresaModel> listarEmpresas() {
@@ -94,8 +94,9 @@ class EmpresaDAO {
                 String cep = conjuntoResultados.getString(3)
                 String cnpj = conjuntoResultados.getString(4)
                 String descricao = conjuntoResultados.getString(5)
+                int id = conjuntoResultados.getInt(6)
 
-                EmpresaModel empresa = new EmpresaModel(nome, email, cep, cnpj, descricao)
+                EmpresaModel empresa = new EmpresaModel(id, nome, email, cep, cnpj, descricao)
                 ListaEmpresas << empresa
             }
             return ListaEmpresas

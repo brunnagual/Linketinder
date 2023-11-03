@@ -1,40 +1,56 @@
 package View
 
-import DAO.ConexaoDAO
+import Controller.CandidatoController
+import Controller.EmpresaController
+import Controller.RegexController
+import Controller.VagasController
+import DAO.VagasDAO
+import Model.RegexModel
+import Model.VagasModel
 
-import java.sql.Connection
-import java.sql.PreparedStatement
-import java.sql.ResultSet
-import java.sql.SQLException
 
 class VagasView {
 
-    static void exibirVagas(ResultSet res) {
-        Connection con = new ConexaoDAO().getConnection()
-        try {
-            PreparedStatement stmt = con.prepareStatement()
-            res = stmt.executeQuery()
+    static void exibirInformacoesVagas() {
 
-            while (res.next()) {
-                String id = res.getString("id")
-                String nome = res.getString("nome")
-                String descricao = res.getString("descricao")
-                String salario = res.getString("salario")
-                String nomeEmpresa = res.getString("empresa")
+        List<VagasModel> vagas = VagasController.ListarVagas()
 
-                println("$id | $nome | $descricao | $salario | $nomeEmpresa")
-            }
-        } catch (SQLException e) {
-            e.printStackTrace()
-        } finally {
-            if (res != null) {
-                try {
-                    res.close()
-                } catch (SQLException e) {
-                    e.printStackTrace()
-                }
+        for (VagasModel vaga: vagas){
+            println("$vaga.nome | $vaga.descricao | $vaga.salario | $vaga.idEmpresa| $vaga.nomeEmpresa")
+        }
+    }
+
+    static void cadastrarVaga(Scanner scanner) {
+
+        String nome = RegexController.validarEntrada( "Nome da vaga: ",RegexModel.regexNome, scanner)
+        String descricao = RegexController.validarEntrada( "Descrição da vaga: ",RegexModel.regexDrescricao, scanner)
+        double salario = RegexController.validarEntrada( "Salário: ",RegexModel.regexSalario, scanner) as double
+        EmpresaView.exibirInformacoesEmpresa()
+        Integer idEmpresa = RegexController.validarEntrada( "ID dá Empresa: ",RegexModel.regexNumero, scanner) as Integer
+
+        ArrayList<String> competencias = new ArrayList<String>()
+        VagasModel vaga = new VagasModel(nome, descricao, salario, idEmpresa, null, competencias)
+
+        Integer vagaId = VagasController.cadastrarVaga(vaga, scanner)
+        associandocompetencias(scanner, vagaId)
+    }
+
+    static void associandocompetencias(Scanner scanner, Integer vagaId){
+        if (vagaId != -1) {
+            VagasDAO.listarTodasCompetencias()
+
+            boolean continuar = true
+
+            while (continuar) {
+
+                int idCompetencia = RegexController.capturarEntradaInt("Digite o número da competência " +
+                        "que deseja associar: ", scanner)
+                VagasController.associarCompetencias(vagaId, idCompetencia)
+                println("Deseja associar outra competência? (S/N): ")
+                String resposta = scanner.next().toUpperCase()
+
+                continuar = resposta.equals("S")
             }
         }
-        ConexaoDAO.desconectar(con)
     }
 }

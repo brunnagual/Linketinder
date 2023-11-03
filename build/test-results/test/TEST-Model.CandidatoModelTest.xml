@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Model.CandidatoModelTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-10-31T02:20:43" hostname="NMTZG00592" time="0.047">
+<testsuite name="Model.CandidatoModelTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-10-31T02:39:00" hostname="NMTZG00592" time="0.044">
   <properties/>
-  <testcase name="testAdicionarCandidato()" classname="Model.CandidatoModelTest" time="0.047"/>
+  <testcase name="testAdicionarCandidato()" classname="Model.CandidatoModelTest" time="0.044"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
