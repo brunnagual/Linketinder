@@ -32,4 +32,6 @@ Foi refatorado todo código para o o padrão MVC onde tenho a minha main que cha
 A partir dá minha view é chamado as funções na controller.
 E a partir dá minha controller é chamado minhas funções na DAO.
 
+- Foi utilizado o design Pattern Singleton.
 - Com isso foi possível fazer o teste unitario para minhas Candidatos, Empresas e competências.
+- Todos esses ajustes permitiu um código muito mais legivel com possibilidade de teste e de ajustes.  
