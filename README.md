@@ -25,3 +25,11 @@ Nessa etapa, foram realizadas as seguintes alterações no código:
 Essas alterações visaram aprimorar a qualidade e a legibilidade do código, tornando-o mais limpo e de fácil compreensão.
 
 - Ajustei as funções para Princípio da inversão de dependência.
+
+---------- Padrões de Projeto -----------
+
+Foi refatorado todo código para o o padrão MVC onde tenho a minha main que chama minha View que acessa os contrutores que estão na minha Model..
+A partir dá minha view é chamado as funções na controller.
+E a partir dá minha controller é chamado minhas funções na DAO.
+
+- Com isso foi possível fazer o teste unitario para minhas Candidatos, Empresas e competências.
