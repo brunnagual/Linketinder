@@ -34,4 +34,7 @@ E a partir dá minha controller é chamado minhas funções na DAO.
 
 - Foi utilizado o design Pattern Singleton.
 - Com isso foi possível fazer o teste unitario para minhas Candidatos, Empresas e competências.
-- Todos esses ajustes permitiu um código muito mais legivel com possibilidade de teste e de ajustes.  
+- Todos esses ajustes permitiu um código muito mais legivel com possibilidade de teste e de ajustes.
+- Foi necessário deletar coluna id_competencias na tabela de vagas.
+- Passei a coluna id_empresa para receber dados nulos.
+- Foi feito os ajustes necessário para inversão de dependências das classes.   
