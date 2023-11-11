@@ -31,7 +31,7 @@ CREATE TABLE  empresas  (
     cnpj   character varying(18) NOT NULL,
     pais   character varying(20),
     descricao   character varying(500) NOT NULL,
-    senha   character varying NOT NULL,
+    senha   character varying (100),
     vagas  int
 );
 
@@ -48,10 +48,8 @@ CREATE TABLE  vagas  (
     nome   character varying(100) NOT NULL,
     descricao   character varying(500) NOT NULL,
     salario  decimal NOT NULL,
-    id_competencias  int NOT NULL,
-    id_empresa int not null,
+    id_empresa int,
     FOREIGN KEY (id_empresa) REFERENCES  empresas(id),
-    FOREIGN KEY (id_competencias) REFERENCES  competencias(id)
 );
 
 CREATE TABLE vagas_competencias (
