@@ -36,7 +36,7 @@ static void main(String[] args) {
                 println("Saindo do programa.")
                 return
             default:
-                println("Opção inválida.")
+                println("Cadastrado com sucesso")
         }
     }
 }

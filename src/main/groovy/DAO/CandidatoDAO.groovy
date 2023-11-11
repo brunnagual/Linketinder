@@ -83,9 +83,10 @@ class CandidatoDAO {
         return -1
     }
 
-    static void listarTodasCompetencias(Connection con) {
+    static void listarTodasCompetencias() {
+        Connection con = ConexaoDAO.getInstance().getConnection()
         try {
-            DatabaseUtilDAO.listarTodasCompetencias(con)
+            DatabaseUtilDAO.listarTodasCompetencias()
         } finally {
 
         }
