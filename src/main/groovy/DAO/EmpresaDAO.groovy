@@ -1,7 +1,6 @@
 package DAO
 
 
-import Model.CandidatoModel
 import Model.EmpresaModel
 
 import java.sql.Connection

@@ -1,6 +1,8 @@
 plugins {
     id 'groovy'
     id 'application'
+    id 'war'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group 'org.example'
@@ -24,8 +26,10 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
     implementation 'javax.servlet:javax.servlet-api:4.0.1'
-    implementation 'org.apache.tomcat.embed:tomcat-embed-core:10.1.15'
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.15'
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.5'
+    implementation 'com.google.code.gson:gson:2.8.9'
+    providedCompile 'org.apache.tomcat.embed:tomcat-embed-core:9.0.82'
 }
 
 test {

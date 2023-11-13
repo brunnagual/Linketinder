@@ -1,6 +1,5 @@
 package DAO
 
-import org.postgresql.core.SqlCommand
 
 import java.sql.Connection
 import java.sql.DriverManager

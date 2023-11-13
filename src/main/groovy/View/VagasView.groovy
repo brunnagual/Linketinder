@@ -1,7 +1,6 @@
 package View
 
-import Controller.CandidatoController
-import Controller.EmpresaController
+
 import Controller.RegexController
 import Controller.VagasController
 import DAO.VagasDAO

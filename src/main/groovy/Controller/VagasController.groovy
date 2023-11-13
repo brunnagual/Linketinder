@@ -1,12 +1,9 @@
 package Controller
 
-import DAO.CandidatoDAO
+
 import DAO.ConexaoDAO
 import DAO.VagasDAO
-import Model.CandidatoModel
-import Model.RegexModel
 import Model.VagasModel
-import View.VagasView
 
 import java.sql.Connection
 
