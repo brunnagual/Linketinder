@@ -41,5 +41,5 @@ E a partir dá minha controller é chamado minhas funções na DAO.
 
  ---------- Implementando a comunicação com a API -----------
 
-Foi feito a comunição com a API nas classes Candidato, Empresa e Vagas.
-Utilizando o tomcat na versão 10.
+- Foi feito a comunição com a API nas classes Candidato, Empresa e Vagas.
+- Utilizando o tomcat na versão 10.
