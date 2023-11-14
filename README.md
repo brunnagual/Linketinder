@@ -37,4 +37,9 @@ E a partir dá minha controller é chamado minhas funções na DAO.
 - Todos esses ajustes permitiu um código muito mais legivel com possibilidade de teste e de ajustes.
 - Foi necessário deletar coluna id_competencias na tabela de vagas.
 - Passei a coluna id_empresa para receber dados nulos.
-- Foi feito os ajustes necessário para inversão de dependências das classes.   
+- Foi feito os ajustes necessário para inversão de dependências das classes.
+
+ ---------- Implementando a comunicação com a API -----------
+
+Foi feito a comunição com a API nas classes Candidato, Empresa e Vagas.
+Utilizando o tomcat na versão 10.
