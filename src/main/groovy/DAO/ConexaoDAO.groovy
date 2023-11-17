@@ -15,7 +15,7 @@ class ConexaoDAO {
     private ConexaoDAO() {
         url = "jdbc:postgresql://localhost:5432/postgres"
         usuario = "postgres"
-        senha = "postgres"
+        senha = "123456"
 
         try {
             Class.forName("org.postgresql.Driver")
